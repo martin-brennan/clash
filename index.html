@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hello, World</title>
+  </head>
+  <body>
+    Hello, World. <script>document.write(process.version)</script>
+
+    <p><input id="dir" type="text" value="Bruce Springsteen - Born To Run" /><a id="opendir" href="#">Open</a></p>
+
+    <img style="width: 400px; height: 400px;" src="" id="art" />
+
+    <script type="text/javascript">
+      var ipc = require('ipc');
+      ipc.on('rend:file:list-dir', function (files, dir) {
+        console.log(files);
+        var albumArt = document.getElementById('art');
+
+        for (var i = 0; i < files.length; i++) {
+          if (files[i].indexOf('.jpg') !== -1) {
+            albumArt.src = 'file://' + dir + '/' + files[i];
+          }
+        }
+      });
+
+      var opendir = document.getElementById('opendir');
+      opendir.addEventListener('click', function () {
+        var dirName = document.getElementById('dir').value;
+        listDir(dirName);
+      });
+
+      function listDir(dirName) {
+        var dir = '/Users/martin/Music/' + dirName;
+        ipc.send('main:file:list-dir', dir);
+      }
+    </script>
+  </body>
+</html>
