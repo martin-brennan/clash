@@ -12,7 +12,6 @@ electron.on('ready', function () {
     height: 720
   });
 
-  console.log(__dirname);
   mainWindow.loadUrl('file:///Users/martin/repos/clash/index.html');
 
   mainWindow.openDevTools();
