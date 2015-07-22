@@ -16,7 +16,7 @@ gulp.task('sass', function () {
 });
 
 gulp.task('watch', function () {
-  return gulp.watch('src/**/*.js', ['scripts', 'sass']);
+  return gulp.watch('src/**/*.js', ['scripts']);
 });
 
 gulp.task('electron', function () {
@@ -29,4 +29,4 @@ gulp.task('electron', function () {
   });
 })
 
-gulp.task('default', ['watch', 'electron']);
+gulp.task('default', ['scripts', 'sass', 'watch', 'electron']);

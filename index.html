@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Hello, World</title>
+    <title></title>
     <script>
       // rename electron's module require system so it
       // does not clash with System.JS + jspm.
@@ -11,18 +11,12 @@
     <link rel="stylesheet" href="dist/ui/main.css" media="screen" title="no title" charset="utf-8">
   </head>
   <body>
-    Hello, World. <script>document.write(process.version)</script>
-
-    <p><input id="dir" type="text" value="Bruce Springsteen - Born To Run" /><a id="opendir" href="#">Open</a></p>
-
-    <img style="width: 400px; height: 400px;" src="" id="art" />
-
-    <div id="app"></div>
+    <div id="clash-app"></div>
 
     <script src="jspm_packages/system.js"></script>
     <script src="config.js"></script>
     <script>
-      System.import('dist/ui/main');
+      System.import('dist/ui/app');
     </script>
   </body>
 </html>
