@@ -3,6 +3,12 @@
   <head>
     <meta charset="utf-8">
     <title>Hello, World</title>
+    <script>
+      // rename electron's module require system so it
+      // does not clash with System.JS + jspm.
+      electron_require = require;
+    </script>
+    <link rel="stylesheet" href="dist/ui/main.css" media="screen" title="no title" charset="utf-8">
   </head>
   <body>
     Hello, World. <script>document.write(process.version)</script>
@@ -11,29 +17,12 @@
 
     <img style="width: 400px; height: 400px;" src="" id="art" />
 
-    <script type="text/javascript">
-      var ipc = require('ipc');
-      ipc.on('rend:file:list-dir', function (files, dir) {
-        console.log(files);
-        var albumArt = document.getElementById('art');
+    <div id="app"></div>
 
-        for (var i = 0; i < files.length; i++) {
-          if (files[i].indexOf('.jpg') !== -1) {
-            albumArt.src = 'file://' + dir + '/' + files[i];
-          }
-        }
-      });
-
-      var opendir = document.getElementById('opendir');
-      opendir.addEventListener('click', function () {
-        var dirName = document.getElementById('dir').value;
-        listDir(dirName);
-      });
-
-      function listDir(dirName) {
-        var dir = '/Users/martin/Music/' + dirName;
-        ipc.send('main:file:list-dir', dir);
-      }
+    <script src="jspm_packages/system.js"></script>
+    <script src="config.js"></script>
+    <script>
+      System.import('dist/ui/main');
     </script>
   </body>
 </html>
