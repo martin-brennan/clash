@@ -18,43 +18,37 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _addressBarAddressBarC = require('./addressBar/addressBar.c');
+var _directoryBarC = require('./directoryBar.c');
 
-var _addressBarAddressBarC2 = _interopRequireDefault(_addressBarAddressBarC);
+var _directoryBarC2 = _interopRequireDefault(_directoryBarC);
 
-var Clash = (function (_React$Component) {
-  _inherits(Clash, _React$Component);
+var _directorySelectorC = require('./directorySelector.c');
 
-  function Clash() {
-    _classCallCheck(this, Clash);
+var _directorySelectorC2 = _interopRequireDefault(_directorySelectorC);
 
-    _get(Object.getPrototypeOf(Clash.prototype), 'constructor', this).apply(this, arguments);
+var AddressBar = (function (_React$Component) {
+  _inherits(AddressBar, _React$Component);
+
+  function AddressBar() {
+    _classCallCheck(this, AddressBar);
+
+    _get(Object.getPrototypeOf(AddressBar.prototype), 'constructor', this).apply(this, arguments);
   }
 
-  _createClass(Clash, [{
+  _createClass(AddressBar, [{
     key: 'render',
     value: function render() {
       return _react2['default'].createElement(
         'div',
-        null,
-        _react2['default'].createElement(_addressBarAddressBarC2['default'], null),
-        _react2['default'].createElement(
-          'p',
-          null,
-          'You are running ',
-          _react2['default'].createElement(
-            'em',
-            null,
-            'clash'
-          ),
-          '.'
-        )
+        { id: 'address-bar' },
+        _react2['default'].createElement(_directoryBarC2['default'], { dir: '/users/martin/music' }),
+        _react2['default'].createElement(_directorySelectorC2['default'], null)
       );
     }
   }]);
 
-  return Clash;
+  return AddressBar;
 })(_react2['default'].Component);
 
-exports['default'] = Clash;
+exports['default'] = AddressBar;
 module.exports = exports['default'];

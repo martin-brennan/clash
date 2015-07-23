@@ -18,43 +18,24 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _addressBarAddressBarC = require('./addressBar/addressBar.c');
+var DirectoryBar = (function (_React$Component) {
+  _inherits(DirectoryBar, _React$Component);
 
-var _addressBarAddressBarC2 = _interopRequireDefault(_addressBarAddressBarC);
+  function DirectoryBar() {
+    _classCallCheck(this, DirectoryBar);
 
-var Clash = (function (_React$Component) {
-  _inherits(Clash, _React$Component);
-
-  function Clash() {
-    _classCallCheck(this, Clash);
-
-    _get(Object.getPrototypeOf(Clash.prototype), 'constructor', this).apply(this, arguments);
+    _get(Object.getPrototypeOf(DirectoryBar.prototype), 'constructor', this).apply(this, arguments);
   }
 
-  _createClass(Clash, [{
+  _createClass(DirectoryBar, [{
     key: 'render',
     value: function render() {
-      return _react2['default'].createElement(
-        'div',
-        null,
-        _react2['default'].createElement(_addressBarAddressBarC2['default'], null),
-        _react2['default'].createElement(
-          'p',
-          null,
-          'You are running ',
-          _react2['default'].createElement(
-            'em',
-            null,
-            'clash'
-          ),
-          '.'
-        )
-      );
+      return _react2['default'].createElement('input', { type: 'text', readOnly: true, style: { width: '100%' }, value: this.props.dir });
     }
   }]);
 
-  return Clash;
+  return DirectoryBar;
 })(_react2['default'].Component);
 
-exports['default'] = Clash;
+exports['default'] = DirectoryBar;
 module.exports = exports['default'];
