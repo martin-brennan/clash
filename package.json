@@ -21,6 +21,7 @@
     "electron-prebuilt": "0.30.0",
     "gulp": "3.9.0",
     "gulp-babel": "5.1.0",
+    "gulp-sass": "2.0.4",
     "jspm": "0.15.7"
   },
   "jspm": {

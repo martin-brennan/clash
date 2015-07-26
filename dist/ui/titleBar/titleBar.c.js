@@ -18,48 +18,49 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _addressBarAddressBarC = require('./addressBar/addressBar.c');
+var ipc = electron_require('ipc');
 
-var _addressBarAddressBarC2 = _interopRequireDefault(_addressBarAddressBarC);
+var TitleBar = (function (_React$Component) {
+  _inherits(TitleBar, _React$Component);
 
-var _titleBarTitleBarC = require('./titleBar/titleBar.c');
+  function TitleBar() {
+    _classCallCheck(this, TitleBar);
 
-var _titleBarTitleBarC2 = _interopRequireDefault(_titleBarTitleBarC);
-
-var Clash = (function (_React$Component) {
-  _inherits(Clash, _React$Component);
-
-  function Clash() {
-    _classCallCheck(this, Clash);
-
-    _get(Object.getPrototypeOf(Clash.prototype), 'constructor', this).apply(this, arguments);
+    _get(Object.getPrototypeOf(TitleBar.prototype), 'constructor', this).call(this);
+    this.style = {
+      'WebkitAppRegion': 'drag',
+      'WebkitUserSelect': 'none',
+      'height': '20px',
+      'backgroundColor': '#ccc'
+    };
+    this.buttonStyle = {
+      'WebkitAppRegion': 'no-drag'
+    };
   }
 
-  _createClass(Clash, [{
+  _createClass(TitleBar, [{
+    key: 'closeWindow',
+    value: function closeWindow() {
+      ipc.send('Main::Window::Close');
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2['default'].createElement(
         'div',
-        null,
-        _react2['default'].createElement(_titleBarTitleBarC2['default'], null),
-        _react2['default'].createElement(_addressBarAddressBarC2['default'], null),
+        { style: this.style },
+        'Clash ',
         _react2['default'].createElement(
-          'p',
-          null,
-          'You are running ',
-          _react2['default'].createElement(
-            'em',
-            null,
-            'Clash'
-          ),
-          '.'
+          'button',
+          { style: this.buttonStyle, onClick: this.closeWindow },
+          'Quit'
         )
       );
     }
   }]);
 
-  return Clash;
+  return TitleBar;
 })(_react2['default'].Component);
 
-exports['default'] = Clash;
+exports['default'] = TitleBar;
 module.exports = exports['default'];

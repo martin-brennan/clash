@@ -29,4 +29,4 @@ gulp.task('electron', function () {
   });
 })
 
-gulp.task('default', ['scripts', 'sass', 'watch', 'electron']);
+gulp.task('default', ['scripts', 'sass', 'watch']);

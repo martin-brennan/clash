@@ -1,5 +1,7 @@
+var base = process.platform === 'darwin' ? '/Users/martin/repos/clash/' : 'C:/repos/clash/';
+
 System.config({
-  "baseURL": "/Users/martin/repos/clash/",
+  "baseURL": base,
   "transpiler": "babel",
   "babelOptions": {
     "optional": [
@@ -131,4 +133,3 @@ System.config({
     }
   }
 });
-

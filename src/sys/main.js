@@ -7,10 +7,14 @@ let mainWindow = null;
 electron.on('ready', () => {
   mainWindow = new BrowserWindow({
     width: 1280,
-    height: 720
+    height: 720,
+    frame: false,
+    center: true,
+    title: 'Clash'
   });
 
-  mainWindow.loadUrl('file:///Users/martin/repos/clash/index.html');
+  var base = process.platform === 'darwin' ? '/Users/martin/repos/clash/' : 'C:/repos/clash/';
+  mainWindow.loadUrl(base + '/index.html');
 
   mainWindow.openDevTools();
 });
@@ -26,3 +30,8 @@ ipc.on('main:file:list-dir', (event, dir) => {
 function readMusicDir(dir, callback) {
   fs.readdir(dir, callback);
 }
+
+
+ipc.on('Main::Window::Close', (event) => {
+  mainWindow.close();
+});
