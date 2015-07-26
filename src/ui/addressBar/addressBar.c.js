@@ -12,11 +12,13 @@ class AddressBar extends React.Component {
 
   dirSelected(dir) {
     this.setState({ dir });
+    this.props.onDirSelected(dir);
   }
 
   render() {
     return <div id="address-bar">
-      <DirectoryBar dir={this.state.dir} /><DirectorySelector dir={this.state.dir} onDirectorySelected={this.dirSelected.bind(this)} />
+      <DirectoryBar dir={this.state.dir} />
+      <DirectorySelector dir={this.state.dir} onDirectorySelected={this.dirSelected.bind(this)} />
     </div>
   }
 }

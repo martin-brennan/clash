@@ -18,28 +18,65 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var DirectoryBar = (function (_React$Component) {
-  _inherits(DirectoryBar, _React$Component);
+var _lodash = require('lodash');
 
-  function DirectoryBar() {
-    _classCallCheck(this, DirectoryBar);
+var _lodash2 = _interopRequireDefault(_lodash);
 
-    _get(Object.getPrototypeOf(DirectoryBar.prototype), 'constructor', this).apply(this, arguments);
+var ipc = electron_require('ipc');
+
+var FileList = (function (_React$Component) {
+  _inherits(FileList, _React$Component);
+
+  function FileList() {
+    _classCallCheck(this, FileList);
+
+    _get(Object.getPrototypeOf(FileList.prototype), 'constructor', this).call(this);
+    this.state = { files: [] };
+    this.initFileListReceiver();
   }
 
-  _createClass(DirectoryBar, [{
+  _createClass(FileList, [{
+    key: 'onDirChanged',
+    value: function onDirChanged(dir) {
+      this.setState({ dir: dir });
+      this.listFiles();
+    }
+  }, {
+    key: 'listFiles',
+    value: function listFiles() {
+      ipc.send('Main::File::ListFilesInDir', this.state.dir);
+    }
+  }, {
+    key: 'initFileListReceiver',
+    value: function initFileListReceiver() {
+      var _this = this;
+
+      ipc.on('Render::File::ListFilesInDir', function (files) {
+        _this.setState({ files: files });
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var key = 0;
+      var fileListItems = _lodash2['default'].map(this.state.files, function (file) {
+        key++;
+        return _react2['default'].createElement(
+          'li',
+          { key: key },
+          file
+        );
+      });
       return _react2['default'].createElement(
-        'div',
+        'ul',
         null,
-        _react2['default'].createElement('input', { type: 'text', readOnly: true, style: { width: '100%' }, value: this.props.dir })
+        fileListItems
       );
     }
   }]);
 
-  return DirectoryBar;
+  return FileList;
 })(_react2['default'].Component);
 
-exports['default'] = DirectoryBar;
+exports['default'] = FileList;
 module.exports = exports['default'];

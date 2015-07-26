@@ -5,6 +5,7 @@ var BrowserWindow = require('browser-window');
 var ipc = require('ipc');
 var fs = require('fs');
 var dialog = require('dialog');
+var _ = require('lodash');
 
 var mainWindow = null;
 electron.on('ready', function () {
@@ -16,17 +17,17 @@ electron.on('ready', function () {
     title: 'Clash'
   });
 
-  var base = process.platform === 'darwin' ? '/Users/martin/repos/clash/' : 'C:/repos/clash/';
-  mainWindow.loadUrl(base + '/index.html');
-
+  var base = process.platform === 'darwin' ? 'file:///Users/martin/repos/clash/' : 'C:/repos/clash/';
+  mainWindow.loadUrl(base + 'index.html');
   mainWindow.openDevTools();
 });
 
-ipc.on('main:file:list-dir', function (event, dir) {
+ipc.on('Main::File::ListFilesInDir', function (event, dir) {
   readMusicDir(dir, function (err, files) {
-    console.log(err);
-    console.log(files);
-    event.sender.send('rend:file:list-dir', files, dir);
+    var filtered = _.filter(files, function (file) {
+      return file.indexOf('.mp3') !== -1;
+    });
+    event.sender.send('Render::File::ListFilesInDir', filtered);
   });
 });
 

@@ -36,5 +36,8 @@
       "babel-runtime": "npm:babel-runtime@^5.1.13",
       "core-js": "npm:core-js@^0.9.4"
     }
+  },
+  "dependencies": {
+    "lodash": "^3.10.0"
   }
 }

@@ -12,7 +12,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
 
 var _react = require('react');
 
@@ -41,13 +41,14 @@ var AddressBar = (function (_React$Component) {
     key: 'dirSelected',
     value: function dirSelected(dir) {
       this.setState({ dir: dir });
+      this.props.onDirSelected(dir);
     }
   }, {
     key: 'render',
     value: function render() {
       return _react2['default'].createElement(
         'div',
-        { id: "address-bar" },
+        { id: 'address-bar' },
         _react2['default'].createElement(_directoryBarC2['default'], { dir: this.state.dir }),
         _react2['default'].createElement(_directorySelectorC2['default'], { dir: this.state.dir, onDirectorySelected: this.dirSelected.bind(this) })
       );

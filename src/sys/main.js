@@ -3,6 +3,7 @@ const BrowserWindow = require('browser-window');
 const ipc           = require('ipc');
 const fs            = require('fs');
 const dialog        = require('dialog');
+const _             = require('lodash');
 
 let mainWindow = null;
 electron.on('ready', () => {
@@ -14,17 +15,17 @@ electron.on('ready', () => {
     title: 'Clash'
   });
 
-  var base = process.platform === 'darwin' ? '/Users/martin/repos/clash/' : 'C:/repos/clash/';
-  mainWindow.loadUrl(base + '/index.html');
-
+  var base = process.platform === 'darwin' ? 'file:///Users/martin/repos/clash/' : 'C:/repos/clash/';
+  mainWindow.loadUrl(base + 'index.html');
   mainWindow.openDevTools();
 });
 
-ipc.on('main:file:list-dir', (event, dir) => {
+ipc.on('Main::File::ListFilesInDir', (event, dir) => {
   readMusicDir(dir, (err, files) => {
-    console.log(err);
-    console.log(files);
-    event.sender.send('rend:file:list-dir', files, dir);
+    let filtered = _.filter(files, (file) => {
+      return file.indexOf('.mp3') !== -1;
+    })
+    event.sender.send('Render::File::ListFilesInDir', filtered);
   });
 });
 
