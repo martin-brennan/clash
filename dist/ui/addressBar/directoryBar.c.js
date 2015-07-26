@@ -30,7 +30,11 @@ var DirectoryBar = (function (_React$Component) {
   _createClass(DirectoryBar, [{
     key: 'render',
     value: function render() {
-      return _react2['default'].createElement('input', { type: "text", readOnly: true, style: { width: '100%' }, value: this.props.dir });
+      return _react2['default'].createElement(
+        'div',
+        null,
+        _react2['default'].createElement('input', { type: "text", readOnly: true, style: { width: '100%' }, value: this.props.dir })
+      );
     }
   }]);
 

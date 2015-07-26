@@ -32,17 +32,24 @@ var AddressBar = (function (_React$Component) {
   function AddressBar() {
     _classCallCheck(this, AddressBar);
 
-    _get(Object.getPrototypeOf(AddressBar.prototype), 'constructor', this).apply(this, arguments);
+    _get(Object.getPrototypeOf(AddressBar.prototype), 'constructor', this).call(this);
+
+    this.state = { dir: 'C:/users/martin/music' };
   }
 
   _createClass(AddressBar, [{
+    key: 'dirSelected',
+    value: function dirSelected(dir) {
+      this.setState({ dir: dir });
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2['default'].createElement(
         'div',
         { id: "address-bar" },
-        _react2['default'].createElement(_directoryBarC2['default'], { dir: "/users/martin/music" }),
-        _react2['default'].createElement(_directorySelectorC2['default'], null)
+        _react2['default'].createElement(_directoryBarC2['default'], { dir: this.state.dir }),
+        _react2['default'].createElement(_directorySelectorC2['default'], { dir: this.state.dir, onDirectorySelected: this.dirSelected.bind(this) })
       );
     }
   }]);

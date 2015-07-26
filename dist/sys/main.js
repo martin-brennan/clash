@@ -4,6 +4,7 @@ var electron = require('app');
 var BrowserWindow = require('browser-window');
 var ipc = require('ipc');
 var fs = require('fs');
+var dialog = require('dialog');
 
 var mainWindow = null;
 electron.on('ready', function () {
@@ -35,4 +36,13 @@ function readMusicDir(dir, callback) {
 
 ipc.on('Main::Window::Close', function (event) {
   mainWindow.close();
+});
+
+ipc.on('Main::File::OpenDirectory', function (event) {
+  dialog.showOpenDialog(mainWindow, {
+    title: 'Select Directory',
+    properties: ['openDirectory']
+  }, function (files) {
+    event.sender.send('Render::File::OpenDirectory', files);
+  });
 });
