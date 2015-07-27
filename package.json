@@ -38,6 +38,7 @@
     }
   },
   "dependencies": {
-    "lodash": "^3.10.0"
+    "lodash": "^3.10.0",
+    "musicmetadata": "^2.0.0"
   }
 }
