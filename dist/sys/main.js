@@ -6,6 +6,7 @@ var ipc = require('ipc');
 var fs = require('fs');
 var dialog = require('dialog');
 var _ = require('lodash');
+var mm = require('musicmetadata');
 
 var mainWindow = null;
 electron.on('ready', function () {
@@ -27,7 +28,14 @@ ipc.on('Main::File::ListFilesInDir', function (event, dir) {
     var filtered = _.filter(files, function (file) {
       return file.indexOf('.mp3') !== -1;
     });
-    event.sender.send('Render::File::ListFilesInDir', filtered);
+    console.log(dir);
+    console.log(dir + filtered[0]);
+
+    mm(fs.createReadStream(dir + '/' + filtered[0]), function (err, metadata) {
+      if (err) throw err;
+      console.log(metadata);
+      event.sender.send('Render::File::ListFilesInDir', filtered);
+    });
   });
 });
 

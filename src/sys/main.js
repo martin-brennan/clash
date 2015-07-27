@@ -4,6 +4,7 @@ const ipc           = require('ipc');
 const fs            = require('fs');
 const dialog        = require('dialog');
 const _             = require('lodash');
+const mm            = require('musicmetadata');
 
 let mainWindow = null;
 electron.on('ready', () => {
@@ -24,8 +25,15 @@ ipc.on('Main::File::ListFilesInDir', (event, dir) => {
   readMusicDir(dir, (err, files) => {
     let filtered = _.filter(files, (file) => {
       return file.indexOf('.mp3') !== -1;
-    })
-    event.sender.send('Render::File::ListFilesInDir', filtered);
+    });
+    console.log(dir);
+    console.log(dir + filtered[0]);
+    
+    mm(fs.createReadStream(dir + '/' + filtered[0]), function (err, metadata) {
+      if (err) throw err;
+      console.log(metadata);
+      event.sender.send('Render::File::ListFilesInDir', filtered);
+    });
   });
 });
 
