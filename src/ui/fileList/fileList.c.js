@@ -5,7 +5,7 @@ const ipc = electron_require('ipc');
 class FileList extends React.Component {
   constructor() {
     super();
-    this.state = { files: [] };
+    this.state = { files: [], metafiltered: [] };
     this.initFileListReceiver();
   }
 
@@ -19,8 +19,8 @@ class FileList extends React.Component {
   }
 
   initFileListReceiver() {
-    ipc.on('Render::File::ListFilesInDir', (files) => {
-      this.setState({ files });
+    ipc.on('Render::File::ListFilesInDir', (files, metafiltered) => {
+      this.setState({ files, metafiltered });
     });
   }
 

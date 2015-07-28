@@ -26,14 +26,26 @@ ipc.on('Main::File::ListFilesInDir', (event, dir) => {
     let filtered = _.filter(files, (file) => {
       return file.indexOf('.mp3') !== -1;
     });
-    console.log(dir);
-    console.log(dir + filtered[0]);
-    
-    mm(fs.createReadStream(dir + '/' + filtered[0]), function (err, metadata) {
-      if (err) throw err;
-      console.log(metadata);
-      event.sender.send('Render::File::ListFilesInDir', filtered);
-    });
+    let metafiltered = [];
+
+    for (var i = 0; i < filtered.length; i++) {
+
+      (function (i, metafiltered, filtered) {
+        let path = dir + '/' + filtered[i];
+        mm(fs.createReadStream(path), function (err, metadata) {
+          if (err) throw err;
+          metadata.picture = null;
+          metafiltered.push(metadata);
+          console.log(metadata);
+
+          if (i === (filtered.length - 1)) {
+            event.sender.send('Render::File::ListFilesInDir', filtered, metafiltered);
+            return;
+          }
+        });
+      })(i, metafiltered, filtered);
+
+    }
   });
 });
 

@@ -31,7 +31,7 @@ var FileList = (function (_React$Component) {
     _classCallCheck(this, FileList);
 
     _get(Object.getPrototypeOf(FileList.prototype), 'constructor', this).call(this);
-    this.state = { files: [] };
+    this.state = { files: [], metafiltered: [] };
     this.initFileListReceiver();
   }
 
@@ -51,8 +51,8 @@ var FileList = (function (_React$Component) {
     value: function initFileListReceiver() {
       var _this = this;
 
-      ipc.on('Render::File::ListFilesInDir', function (files) {
-        _this.setState({ files: files });
+      ipc.on('Render::File::ListFilesInDir', function (files, metafiltered) {
+        _this.setState({ files: files, metafiltered: metafiltered });
       });
     }
   }, {
