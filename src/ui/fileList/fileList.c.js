@@ -20,6 +20,7 @@ class FileList extends React.Component {
 
   initFileListReceiver() {
     ipc.on('Render::File::ListFilesInDir', (files, metafiltered) => {
+      console.log(metafiltered);
       this.setState({ files, metafiltered });
     });
   }
@@ -30,9 +31,15 @@ class FileList extends React.Component {
       key++;
       return <li key={key}>{file}</li>;
     });
-    return <ul>
+    let firstItem = null;
+    if (this.state.metafiltered.length > 0) {
+      firstItem = <p>{this.state.metafiltered[0].title} {this.state.metafiltered[0].album}</p>
+    }
+    return <div><ul>
       {fileListItems}
     </ul>
+    {firstItem}
+    </div>
   }
 }
 

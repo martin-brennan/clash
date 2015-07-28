@@ -52,6 +52,7 @@ var FileList = (function (_React$Component) {
       var _this = this;
 
       ipc.on('Render::File::ListFilesInDir', function (files, metafiltered) {
+        console.log(metafiltered);
         _this.setState({ files: files, metafiltered: metafiltered });
       });
     }
@@ -67,10 +68,25 @@ var FileList = (function (_React$Component) {
           file
         );
       });
+      var firstItem = null;
+      if (this.state.metafiltered.length > 0) {
+        firstItem = _react2['default'].createElement(
+          'p',
+          null,
+          this.state.metafiltered[0].title,
+          ' ',
+          this.state.metafiltered[0].album
+        );
+      }
       return _react2['default'].createElement(
-        'ul',
+        'div',
         null,
-        fileListItems
+        _react2['default'].createElement(
+          'ul',
+          null,
+          fileListItems
+        ),
+        firstItem
       );
     }
   }]);
