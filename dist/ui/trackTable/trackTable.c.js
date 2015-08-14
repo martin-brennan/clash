@@ -18,80 +18,49 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _trackRowC = require('./trackRow.c');
+
+var _trackRowC2 = _interopRequireDefault(_trackRowC);
+
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _trackTableTrackTableC = require('../trackTable/trackTable.c');
+var TrackTable = (function (_React$Component) {
+  _inherits(TrackTable, _React$Component);
 
-var _trackTableTrackTableC2 = _interopRequireDefault(_trackTableTrackTableC);
+  function TrackTable() {
+    _classCallCheck(this, TrackTable);
 
-var ipc = electron_require('ipc');
-
-var FileList = (function (_React$Component) {
-  _inherits(FileList, _React$Component);
-
-  function FileList() {
-    _classCallCheck(this, FileList);
-
-    _get(Object.getPrototypeOf(FileList.prototype), 'constructor', this).call(this);
-    this.state = { files: [], metafiltered: [] };
-    this.initFileListReceiver();
+    _get(Object.getPrototypeOf(TrackTable.prototype), 'constructor', this).call(this);
+    this.tableStyle = {
+      width: '100%'
+    };
   }
 
-  _createClass(FileList, [{
-    key: 'onDirChanged',
-    value: function onDirChanged(dir) {
-      this.setState({ dir: dir });
-      this.listFiles();
-    }
-  }, {
-    key: 'listFiles',
-    value: function listFiles() {
-      ipc.send('Main::File::ListFilesInDir', this.state.dir);
-    }
-  }, {
-    key: 'initFileListReceiver',
-    value: function initFileListReceiver() {
-      var _this = this;
-
-      ipc.on('Render::File::ListFilesInDir', function (files, metafiltered) {
-        console.log(metafiltered);
-        _this.setState({ files: files, metafiltered: metafiltered });
-      });
-    }
-  }, {
+  _createClass(TrackTable, [{
     key: 'render',
     value: function render() {
-      var key = 0;
-      var fileListItems = _lodash2['default'].map(this.state.files, function (file) {
-        key++;
-        return _react2['default'].createElement(
-          'li',
-          { key: key },
-          file
-        );
+      this.props.tracks.sort(function (a, b) {
+        return a.track.no - b.track.no;
       });
-      var firstItem = null;
-      if (this.state.metafiltered.length > 0) {
-        firstItem = _react2['default'].createElement(
-          'p',
-          null,
-          this.state.metafiltered[0].title,
-          ' ',
-          this.state.metafiltered[0].album
-        );
-      }
+      var trackList = _lodash2['default'].map(this.props.tracks, function (track) {
+        return _react2['default'].createElement(_trackRowC2['default'], { track: track, key: track.track.no });
+      });
       return _react2['default'].createElement(
-        'div',
-        null,
-        _react2['default'].createElement(_trackTableTrackTableC2['default'], { tracks: this.state.metafiltered })
+        'table',
+        { style: this.tableStyle },
+        _react2['default'].createElement(
+          'tbody',
+          null,
+          trackList
+        )
       );
     }
   }]);
 
-  return FileList;
+  return TrackTable;
 })(_react2['default'].Component);
 
-exports['default'] = FileList;
+exports['default'] = TrackTable;
 module.exports = exports['default'];

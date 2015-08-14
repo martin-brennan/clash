@@ -1,5 +1,6 @@
-import React from 'react';
-import _     from 'lodash';
+import React      from 'react';
+import _          from 'lodash';
+import TrackTable from '../trackTable/trackTable.c';
 const ipc = electron_require('ipc');
 
 class FileList extends React.Component {
@@ -33,13 +34,11 @@ class FileList extends React.Component {
     });
     let firstItem = null;
     if (this.state.metafiltered.length > 0) {
-      firstItem = <p>{this.state.metafiltered[0].title} {this.state.metafiltered[0].album}</p>
+      firstItem = <p>{this.state.metafiltered[0].title} {this.state.metafiltered[0].album}</p>;
     }
-    return <div><ul>
-      {fileListItems}
-    </ul>
-    {firstItem}
-    </div>
+    return <div>
+    <TrackTable tracks={this.state.metafiltered} />
+    </div>;
   }
 }
 
